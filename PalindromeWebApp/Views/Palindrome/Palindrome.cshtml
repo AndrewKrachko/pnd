@@ -1,0 +1,21 @@
+﻿@model PalindromeState
+@{
+    ViewData["Title"] = "Palindrome";
+}
+
+<h1>Palindrome</h1>
+<div>
+    <form method="get">
+        <p>Input your palindrome for check:</p>
+        <input type="text" name="palindrome" />
+        <input type="submit" />
+    </form>
+    @if(Model.PalindromeSting != null && Model.PalindromeSting != "")
+    {
+        <div>
+            <p>String "@Model.PalindromeSting" is @if (!Model.IsValidPalindrome)
+                        {<b>Not</b>} palindrome.</p>
+        </div>
+    }
+</div>
+
