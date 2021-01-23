@@ -4,18 +4,91 @@
 }
 
 <h1>Palindrome</h1>
-<div>
+<div id="userInfo" style="display:none;">
     <form method="get">
         <p>Input your palindrome for check:</p>
         <input type="text" name="palindrome" />
         <input type="submit" />
     </form>
-    @if(Model.PalindromeSting != null && Model.PalindromeSting != "")
+    @if (Model.PalindromeSting != null && Model.PalindromeSting != "")
     {
         <div>
-            <p>String "@Model.PalindromeSting" is @if (!Model.IsValidPalindrome)
-                        {<b>Not</b>} palindrome.</p>
+            <p>
+                String "@Model.PalindromeSting" is @if (!Model.IsValidPalindrome)
+                {<b>Not</b>} palindrome.
+            </p>
         </div>
     }
 </div>
 
+
+<script>
+        var tokenKey = "accessToken";
+
+        // отпавка запроса к контроллеру AccountController для получения токена
+        async function getTokenAsync() {
+
+            // получаем данные формы и фомируем объект для отправки
+            const formData = new FormData();
+            formData.append("grant_type", "password");
+            formData.append("username", document.getElementById("emailLogin").value);
+            formData.append("password", document.getElementById("passwordLogin").value);
+
+            // отправляет запрос и получаем ответ
+            const response = await fetch("/token", {
+                method: "POST",
+                headers: {"Accept": "application/json"},
+                body: formData
+            });
+            // получаем данные
+            const data = await response.json();
+
+            // если запрос прошел нормально
+            if (response.ok === true) {
+
+                // изменяем содержимое и видимость блоков на странице
+                document.getElementById("userInfo").style.display = "block";
+                // сохраняем в хранилище sessionStorage токен доступа
+                sessionStorage.setItem(tokenKey, data.access_token);
+                console.log(data.access_token);
+             }
+            else {
+                // если произошла ошибка, из errorText получаем текст ошибки
+                console.log("Error: ", response.status, data.errorText);
+            }
+        };
+        // отправка запроса к контроллеру ValuesController
+        async function getData(url) {
+            const token = sessionStorage.getItem(tokenKey);
+
+            const response = await fetch(url, {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "Authorization": "Bearer " + token  // передача токена в заголовке
+                }
+            });
+            if (response.ok === true) {
+
+                const data = await response.json();
+                alert(data)
+            }
+            else
+                console.log("Status: ", response.status);
+        };
+
+        // получаем токен
+        document.getElementById("submitLogin").addEventListener("click", e => {
+
+            e.preventDefault();
+            getTokenAsync();
+        });
+
+        // условный выход - просто удаляем токен и меняем видимость блоков
+        document.getElementById("logOut").addEventListener("click", e => {
+
+            e.preventDefault();
+            document.getElementById("userInfo").style.display = "none";
+            sessionStorage.removeItem(tokenKey);
+        });
+</script>

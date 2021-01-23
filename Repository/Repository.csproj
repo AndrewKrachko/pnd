@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EfCoreDataBaseConnector\EfCoreDataBaseConnector.csproj" />
+    <ProjectReference Include="..\Items\Items.csproj" />
+  </ItemGroup>
+
+</Project>

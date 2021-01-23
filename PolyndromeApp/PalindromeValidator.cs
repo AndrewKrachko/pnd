@@ -2,7 +2,7 @@
 
 namespace PolyndromeApp
 {
-    public static class PalindromeValidator
+    public class PalindromeValidator
     {
         public static bool IsStringPalindrome(string palindrome)
         {
