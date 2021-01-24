@@ -41,10 +41,9 @@ namespace PalindromeWebApp.Controllers
                     var identity = GetClaim(userName, password);
 
                     var now = DateTime.UtcNow;
-                    // создаем JWT-токен
                     var jwt = new JwtSecurityToken(
                             issuer: AuthOptions.ISSUER,
-                            audience: AuthOptions.AUDIENCE,
+                            audience: null,
                             notBefore: now,
                             claims: identity.Claims,
                             expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
