@@ -23,8 +23,8 @@ namespace Repository
         private EfCoreDatabaseConnector GetEfDatabaseConnector()
         {
             var databaseConnector = new EfCoreDatabaseConnector();
-            ((EfCoreDatabaseConnector)databaseConnector).Database.EnsureCreated();
-            ((EfCoreDatabaseConnector)databaseConnector).SaveChanges();
+            databaseConnector.Database.EnsureCreated();
+            databaseConnector.SaveChanges();
 
             return databaseConnector;
         }
