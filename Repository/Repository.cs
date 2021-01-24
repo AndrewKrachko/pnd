@@ -14,6 +14,8 @@ namespace Repository
             {
                 case DataSource.EfCore:
                     _databaseConnector = new EfCoreDatabaseConnector();
+                    ((EfCoreDatabaseConnector)_databaseConnector).Database.EnsureCreated();
+                    ((EfCoreDatabaseConnector)_databaseConnector).SaveChanges();
                     break;
                 default:
                     _databaseConnector = new EfCoreDatabaseConnector();
