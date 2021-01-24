@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PolyndromeApp\PolyndromeApp.csproj" />
+    <ProjectReference Include="..\PolyndromeApp\PalindromeApp.csproj" />
     <ProjectReference Include="..\Repository\Repository.csproj" />
   </ItemGroup>
 

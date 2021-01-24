@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PolyndromeApp", "PolyndromeApp\PolyndromeApp.csproj", "{BFE37157-B642-472A-9DDC-4329EFE79719}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PalindromeApp", "PolyndromeApp\PalindromeApp.csproj", "{BFE37157-B642-472A-9DDC-4329EFE79719}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BAL", "BAL", "{0ED2AA26-ACA6-4850-9675-BED6018E75FF}"
 EndProject
@@ -15,13 +15,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PalindromeWebApp", "PalindromeWebApp\PalindromeWebApp.csproj", "{119F5F86-D8C3-49CA-9573-F5AA948FD5C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{CECC568B-BAA6-4603-AC21-37011090D2D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{CECC568B-BAA6-4603-AC21-37011090D2D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Items", "Items\Items.csproj", "{5DAEFC32-B763-4035-95BB-3B5BFF55F145}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Items", "Items\Items.csproj", "{5DAEFC32-B763-4035-95BB-3B5BFF55F145}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB", "DB", "{E9DD5BA0-997F-4BC4-8CCA-382C3C578A0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfCoreDataBaseConnector", "EfCoreDataBaseConnector\EfCoreDataBaseConnector.csproj", "{04192523-ACBB-48CE-87ED-EAB27E878571}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EfCoreDataBaseConnector", "EfCoreDataBaseConnector\EfCoreDataBaseConnector.csproj", "{04192523-ACBB-48CE-87ED-EAB27E878571}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

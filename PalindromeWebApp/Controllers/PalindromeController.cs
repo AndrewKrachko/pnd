@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PalindromeWebApp.Models;
-using PolyndromeApp;
+using PalindromeApp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
