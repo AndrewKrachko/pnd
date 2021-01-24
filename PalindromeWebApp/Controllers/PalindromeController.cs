@@ -1,18 +1,19 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Items;
 using Microsoft.AspNetCore.Mvc;
-using PalindromeWebApp.Models;
 using PalindromeApp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using PalindromeWebApp.Models;
 
 namespace PalindromeWebApp.Controllers
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class PalindromeController : Controller
     {
+        private IAuthenticationService _authenticationService;
+
+        public PalindromeController(IAuthenticationService authenticationService)
+        {
+            _authenticationService = authenticationService;
+        }
+
         public IActionResult Index()
         {
             return RedirectPermanent("Palindrome/Palindrome");
@@ -20,8 +21,14 @@ namespace PalindromeWebApp.Controllers
 
         public IActionResult Palindrome(string palindrome = "")
         {
+            var responseCookies = Request.Cookies;
+            if (!_authenticationService.AuthenticateUser(responseCookies["userName"], responseCookies["token"]))
+            {
+                return RedirectToActionPermanent("Login", "Home");
+            }
+
             var isPalindrome = PalindromeValidator.IsStringPalindrome(palindrome);
-            var palindromeValidator = new PalindromeState() { PalindromeSting= palindrome, IsValidPalindrome = isPalindrome};
+            var palindromeValidator = new PalindromeState() { PalindromeSting = palindrome, IsValidPalindrome = isPalindrome };
 
             return View(palindromeValidator);
         }

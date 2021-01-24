@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PalindromeApp
+﻿namespace PalindromeApp
 {
     public class PalindromeValidator
     {

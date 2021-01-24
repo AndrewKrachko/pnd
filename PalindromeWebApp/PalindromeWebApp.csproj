@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\JwtAuthentificationService\JwtAuthentificationService.csproj" />
     <ProjectReference Include="..\PolyndromeApp\PalindromeApp.csproj" />
     <ProjectReference Include="..\Repository\Repository.csproj" />
   </ItemGroup>

@@ -1,5 +1,3 @@
-using System;
-
 namespace PalindromeWebApp.Models
 {
     public class ErrorViewModel

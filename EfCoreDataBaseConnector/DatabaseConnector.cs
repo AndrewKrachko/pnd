@@ -1,7 +1,5 @@
 ﻿using Items;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
 
 namespace EfCoreRepository
 {

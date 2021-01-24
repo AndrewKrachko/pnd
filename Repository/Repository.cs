@@ -1,6 +1,5 @@
 ﻿using EfCoreRepository;
 using Items;
-using System;
 
 namespace Repository
 {
@@ -13,14 +12,21 @@ namespace Repository
             switch (dataSource)
             {
                 case DataSource.EfCore:
-                    _databaseConnector = new EfCoreDatabaseConnector();
-                    ((EfCoreDatabaseConnector)_databaseConnector).Database.EnsureCreated();
-                    ((EfCoreDatabaseConnector)_databaseConnector).SaveChanges();
+                    _databaseConnector = GetEfDatabaseConnector();
                     break;
                 default:
-                    _databaseConnector = new EfCoreDatabaseConnector();
+                    _databaseConnector = GetEfDatabaseConnector();
                     break;
             }
+        }
+
+        private EfCoreDatabaseConnector GetEfDatabaseConnector()
+        {
+            var databaseConnector = new EfCoreDatabaseConnector();
+            ((EfCoreDatabaseConnector)databaseConnector).Database.EnsureCreated();
+            ((EfCoreDatabaseConnector)databaseConnector).SaveChanges();
+
+            return databaseConnector;
         }
 
         public bool GetUserByName(string name, out IUser user)

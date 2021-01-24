@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace Items
+﻿namespace Items
 {
     public interface IRepository
     {
-         bool GetUserByName(string name, out IUser user);
+        bool GetUserByName(string name, out IUser user);
     }
 
     public interface IDatabaseConnector
@@ -16,5 +14,11 @@ namespace Items
     {
         string Name { get; set; }
         string Password { get; set; }
+    }
+
+    public interface IAuthenticationService
+    {
+        bool AuthoriseUser(string userName, string password, out string token);
+        bool AuthenticateUser(string userName, string token);
     }
 }

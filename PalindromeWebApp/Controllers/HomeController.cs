@@ -1,24 +1,19 @@
 ﻿using Items;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 using PalindromeWebApp.Models;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 
 namespace PalindromeWebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private IRepository _repository;
+        private IAuthenticationService _authenticationService;
 
-        public HomeController(IRepository repository)
+        public HomeController(IAuthenticationService authenticationService)
         {
-            _repository = repository;
+            _authenticationService = authenticationService;
         }
 
         public IActionResult Index()
@@ -34,45 +29,17 @@ namespace PalindromeWebApp.Controllers
         [HttpPost]
         public IActionResult Authorise(string userName, string password)
         {
-            if (_repository.GetUserByName(userName, out var dbUser))
+            if (_authenticationService.AuthoriseUser(userName, password, out var token))
             {
-                if (dbUser.Name == userName && dbUser.Password == password)
-                {
-                    var identity = GetClaim(userName, password);
+                var cookieOptions = new CookieOptions();
+                cookieOptions.Expires = DateTimeOffset.UtcNow.AddMinutes(5);
+                Response.Cookies.Append("token", token, cookieOptions);
+                Response.Cookies.Append("userName", userName, cookieOptions);
 
-                    var now = DateTime.UtcNow;
-                    var jwt = new JwtSecurityToken(
-                            issuer: AuthOptions.ISSUER,
-                            audience: null,
-                            notBefore: now,
-                            claims: identity.Claims,
-                            expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-                            signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-                    var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-
-                    var cookieOptions = new CookieOptions();
-                    cookieOptions.Expires = DateTimeOffset.UtcNow.AddMinutes(5);
-                    Response.Cookies.Append("jwt", encodedJwt, cookieOptions);
-                    Response.Cookies.Append("userName", userName, cookieOptions);
-
-                    return RedirectPermanent("../Palindrome/Palindrome");
-                }
+                return RedirectToActionPermanent("Palindrome", "Palindrome");
             }
 
             return RedirectPermanent("Login");
-        }
-
-        private ClaimsIdentity GetClaim(string username, string password)
-        {
-            var claims = new List<Claim>
-                {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, username),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, "User")
-                };
-            ClaimsIdentity claim =
-            new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
-                ClaimsIdentity.DefaultRoleClaimType);
-            return claim;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
